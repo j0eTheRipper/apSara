@@ -1,6 +1,8 @@
+import 'package:ap_sara/UserGoogleAccount.dart';
 import 'package:ap_sara/studentInfo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:provider/provider.dart';
 
 Future main() async {
   await dotenv.load();
@@ -42,7 +44,7 @@ class Login extends StatelessWidget {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) {
-                      return StudentInfo();
+                      return ChangeNotifierProvider(create: (context) => UserGoogleAccount(), child: StudentInfo());
                     },
                   ),
                 );

@@ -1,6 +1,8 @@
+import 'package:ap_sara/UserGoogleAccount.dart';
 import 'package:flutter/material.dart';
 import 'package:ap_sara/Scheduler/Class.dart';
 import 'package:ap_sara/Scheduler/IconText.dart';
+import 'package:provider/provider.dart';
 
 class ClassWidget extends StatelessWidget {
   final Class classData;
@@ -15,7 +17,7 @@ class ClassWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Colors.black,
+        color: Colors.deepPurpleAccent,
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
@@ -58,7 +60,8 @@ class ClassWidget extends StatelessWidget {
           Align(
             alignment: Alignment.centerRight,
             child: ElevatedButton(
-              onPressed: () { },
+              onPressed: () {
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,
                 padding:

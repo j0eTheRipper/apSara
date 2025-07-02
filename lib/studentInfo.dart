@@ -1,5 +1,5 @@
-import 'package:ap_sara/StudentInfoModel.dart';
 import 'package:ap_sara/ApSchedule.dart';
+import 'package:ap_sara/UserGoogleAccount.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -44,7 +44,8 @@ class StudentInfo extends StatelessWidget {
                         MaterialPageRoute(
                           builder: (context) {
                             return ApSchedule(intakeCode: intakeCtrl.text.toUpperCase(),
-                            groupNumber: groupCtrl.text.toUpperCase(),);
+                            groupNumber: groupCtrl.text.toUpperCase(),
+                            );
                           },
                         ),
                       );
@@ -52,6 +53,18 @@ class StudentInfo extends StatelessWidget {
                     child: Text("Save info"),
                   ),
                 ),
+                Consumer<UserGoogleAccount>(
+                  builder: (context, account, child) {
+                    return Padding(padding: const EdgeInsets.all(8.0),
+                      child: ElevatedButton(onPressed: () {
+                        if (!account.isAuthorized) {
+                          account.signInHandler();
+                        }
+                      }, child: Text("connect your google account")),
+                    );
+                  },
+                ),
+                Text("Signed in as: ${Provider.of<UserGoogleAccount>(context, listen: true).account}")
               ],
             ),
           ),

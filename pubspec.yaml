@@ -37,6 +37,9 @@ dependencies:
   provider: ^6.1.4
   http: ^1.4.0
   flutter_dotenv: ^5.2.1
+  googleapis: ^14.0.0
+  google_sign_in: ^6.3.0
+  extension_google_sign_in_as_googleapis_auth: ^2.0.13
 
 dev_dependencies:
   flutter_test:

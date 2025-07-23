@@ -10,6 +10,8 @@ class StudentInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     TextEditingController intakeCtrl = TextEditingController();
     TextEditingController groupCtrl = TextEditingController();
+    GoogleCalendarStuff account = Provider.of<GoogleCalendarStuff>(context, listen: false);
+    account.signInSilently();
     return Scaffold(
       body: Center(
         child: Padding(
@@ -45,6 +47,7 @@ class StudentInfo extends StatelessWidget {
                           builder: (context) {
                             return ApSchedule(intakeCode: intakeCtrl.text.toUpperCase(),
                             groupNumber: groupCtrl.text.toUpperCase(),
+                              account: account,
                             );
                           },
                         ),
@@ -53,18 +56,22 @@ class StudentInfo extends StatelessWidget {
                     child: Text("Save info"),
                   ),
                 ),
-                Consumer<UserGoogleAccount>(
-                  builder: (context, account, child) {
+                Consumer<GoogleCalendarStuff>(builder: (context, calendar, child) {
+                  if (!calendar.isAuthorized) {
                     return Padding(padding: const EdgeInsets.all(8.0),
                       child: ElevatedButton(onPressed: () {
-                        if (!account.isAuthorized) {
+                        if (!calendar.isAuthorized) {
                           account.signInHandler();
                         }
-                      }, child: Text("connect your google account")),
+                      }, child: Text("sign in with google")),
                     );
-                  },
-                ),
-                Text("Signed in as: ${Provider.of<UserGoogleAccount>(context, listen: true).account}")
+                  } else {
+                    return Padding(padding: const EdgeInsets.all(8.0),
+                    child: Text("already logged in as : ${calendar.account}"));
+                  }
+                },),
+                Padding(padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(onPressed: () async => await account.signOut(), child: Text("Signout")),),
               ],
             ),
           ),

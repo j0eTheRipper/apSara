@@ -44,7 +44,7 @@ class Login extends StatelessWidget {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) {
-                      return ChangeNotifierProvider(create: (context) => UserGoogleAccount(), child: StudentInfo());
+                      return ChangeNotifierProvider(create: (context) => GoogleCalendarStuff(), child: StudentInfo());
                     },
                   ),
                 );

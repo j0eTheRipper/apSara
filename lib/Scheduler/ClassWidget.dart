@@ -2,18 +2,19 @@ import 'package:ap_sara/UserGoogleAccount.dart';
 import 'package:flutter/material.dart';
 import 'package:ap_sara/Scheduler/Class.dart';
 import 'package:ap_sara/Scheduler/IconText.dart';
-import 'package:provider/provider.dart';
 
 class ClassWidget extends StatelessWidget {
   final Class classData;
+  final GoogleCalendarStuff account;
 
   const ClassWidget({
     super.key,
-    required this.classData,
+    required this.classData, required this.account,
   });
 
   @override
   Widget build(BuildContext context) {
+    account.signInSilently();
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -60,7 +61,9 @@ class ClassWidget extends StatelessWidget {
           Align(
             alignment: Alignment.centerRight,
             child: ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
+                print(await account.isOccupied(classData.start, classData.end));
+                await account.addToCalendar(classData);
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,

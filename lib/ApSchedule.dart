@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:ap_sara/Scheduler/ClassWidget.dart';
+import 'package:ap_sara/UserGoogleAccount.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -10,11 +11,12 @@ import 'Scheduler/Timetable.dart';
 class ApSchedule extends StatelessWidget {
   final String intakeCode;
   final String groupNumber;
+  final GoogleCalendarStuff account;
 
   const ApSchedule({
     super.key,
     required this.intakeCode,
-    required this.groupNumber,
+    required this.groupNumber, required this.account,
   });
 
   @override
@@ -35,7 +37,7 @@ class ApSchedule extends StatelessWidget {
                     itemBuilder: (BuildContext context, int index) {
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: ClassWidget(classData: snapshot.data!.classes[index]),
+                        child: ClassWidget(classData: snapshot.data!.classes[index], account: account),
                       );
                     },
                   ),

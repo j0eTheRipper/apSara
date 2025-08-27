@@ -10,8 +10,9 @@ class GoogleCalendarStuff extends ChangeNotifier {
 
   GoogleCalendarStuff() {
     _googleSignIn = GoogleSignIn(
-      serverClientId: kIsWeb ? null : dotenv.env["SERVER_ID"], // Mobile only
-      clientId: kIsWeb ? dotenv.env["CLIENT_ID"] : null, // Web only
+      serverClientId: kIsWeb ? null : dotenv.env["SERVER"],
+      clientId:
+          kIsWeb ? dotenv.env["WEB_CLIENT"] : dotenv.env["ANDROID_CLIENT"],
       scopes: <String>[CalendarApi.calendarEventsScope],
     );
   }

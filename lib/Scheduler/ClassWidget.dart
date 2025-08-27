@@ -9,7 +9,8 @@ class ClassWidget extends StatelessWidget {
 
   const ClassWidget({
     super.key,
-    required this.classData, required this.account,
+    required this.classData,
+    required this.account,
   });
 
   @override
@@ -35,47 +36,49 @@ class ClassWidget extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             classData.moduleTitle,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 14,
-            ),
+            style: const TextStyle(color: Colors.white, fontSize: 14),
           ),
           const SizedBox(height: 8),
           IconText(
-              icon: const Icon(Icons.access_time, color: Colors.grey, size: 16),
-              text: "${classData.startTime}-> ${classData.endTime}"),
+            icon: const Icon(Icons.access_time, color: Colors.grey, size: 16),
+            text: "${classData.startTime}-> ${classData.endTime}",
+          ),
           const SizedBox(height: 8),
           IconText(
-              icon: const Icon(Icons.calendar_month_outlined,
-                  color: Colors.grey, size: 16),
-              text: "${classData.day}, ${classData.date}"),
+            icon: const Icon(
+              Icons.calendar_month_outlined,
+              color: Colors.grey,
+              size: 16,
+            ),
+            text: "${classData.day}, ${classData.date}",
+          ),
           const SizedBox(height: 8),
           IconText(
-              icon: const Icon(Icons.location_on, color: Colors.blue, size: 16),
-              text: classData.location),
+            icon: const Icon(Icons.location_on, color: Colors.blue, size: 16),
+            text: classData.location,
+          ),
           const SizedBox(height: 4),
           IconText(
-              icon: const Icon(Icons.person, color: Colors.blue, size: 16),
-              text: classData.tutor),
+            icon: const Icon(Icons.person, color: Colors.blue, size: 16),
+            text: classData.tutor,
+          ),
           const SizedBox(height: 12),
           Align(
             alignment: Alignment.centerRight,
             child: ElevatedButton(
               onPressed: () async {
-                print(await account.isOccupied(classData.start, classData.end));
                 await account.addToCalendar(classData);
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                backgroundColor: Colors.red,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
+                ),
               ),
               child: const Text(
                 "Add To calendar",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 12,
-                ),
+                style: TextStyle(color: Colors.white, fontSize: 12),
               ),
             ),
           ),

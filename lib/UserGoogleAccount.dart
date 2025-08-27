@@ -6,13 +6,15 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:googleapis/calendar/v3.dart';
 
 class GoogleCalendarStuff extends ChangeNotifier {
-  final _googleSignIn = GoogleSignIn(
-      serverClientId: dotenv.env["SERVER_ID"],
-      clientId: dotenv.env["CLIENT_ID"],
-      scopes: <String>[
-        CalendarApi.calendarEventsScope,
-      ]
-  );
+  late final GoogleSignIn _googleSignIn;
+
+  GoogleCalendarStuff() {
+    _googleSignIn = GoogleSignIn(
+      serverClientId: kIsWeb ? null : dotenv.env["SERVER_ID"], // Mobile only
+      clientId: kIsWeb ? dotenv.env["CLIENT_ID"] : null, // Web only
+      scopes: <String>[CalendarApi.calendarEventsScope],
+    );
+  }
 
   GoogleSignInAccount? _account;
   bool isAuthorized = false;
@@ -24,7 +26,6 @@ class GoogleCalendarStuff extends ChangeNotifier {
       return _account!.email;
     }
   }
-
 
   Future<void> signInHandler() async {
     _account = await _googleSignIn.signIn();
@@ -51,14 +52,26 @@ class GoogleCalendarStuff extends ChangeNotifier {
   Future<bool> isOccupied(DateTime startTime, DateTime endTime) async {
     final authClient = await _googleSignIn.authenticatedClient();
     final userCalendar = CalendarApi(authClient!);
-    final event = await userCalendar.events.list(account, orderBy: "startTime", maxResults: 1, singleEvents: true, timeMin: startTime, timeMax: endTime);
+    final event = await userCalendar.events.list(
+      account,
+      orderBy: "startTime",
+      maxResults: 1,
+      singleEvents: true,
+      timeMin: startTime,
+      timeMax: endTime,
+    );
     return event.items!.isNotEmpty;
   }
 
   Future<void> addToCalendar(Class cls) async {
     final authClient = await _googleSignIn.authenticatedClient();
     final userCalendar = CalendarApi(authClient!);
-    Event event = Event(start: EventDateTime(dateTime: cls.start), end: EventDateTime(dateTime: cls.end), summary: cls.moduleID, description: cls.moduleTitle);
+    Event event = Event(
+      start: EventDateTime(dateTime: cls.start),
+      end: EventDateTime(dateTime: cls.end),
+      summary: cls.moduleID,
+      description: cls.moduleTitle,
+    );
     await userCalendar.events.insert(event, account);
   }
 }

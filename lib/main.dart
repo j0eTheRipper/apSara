@@ -1,3 +1,5 @@
+import 'package:ap_sara/SaraChat.dart';
+import 'package:ap_sara/SaraStuff.dart';
 import 'package:ap_sara/UserGoogleAccount.dart';
 import 'package:ap_sara/studentInfo.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +8,7 @@ import 'package:provider/provider.dart';
 
 Future main() async {
   await dotenv.load();
+  print(dotenv.env); 
   runApp(const MyApp());
 }
 
@@ -51,7 +54,17 @@ class Login extends StatelessWidget {
               },
               child: Text("Provide Info"),
             ),
-            TextButton(onPressed: () {}, child: Text("chat with bot as guest")),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return ChangeNotifierProvider(create: (context) => SaraStuff(), child: ChatScreen());
+                    },
+                  ),
+                );
+              }, 
+              child: Text("chat with bot as guest")),
           ],
         ),
       ),

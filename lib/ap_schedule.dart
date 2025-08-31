@@ -1,11 +1,11 @@
 import 'dart:convert';
-import 'package:ap_sara/Scheduler/ClassWidget.dart';
+import 'package:ap_sara/Scheduler/class_widget.dart';
 import 'package:ap_sara/google_account_signin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
-import 'Scheduler/Timetable.dart';
+import 'Scheduler/timetable.dart';
 
 class ApSchedule extends StatelessWidget {
   final String intakeCode;

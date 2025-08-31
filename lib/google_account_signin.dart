@@ -1,4 +1,4 @@
-import 'package:ap_sara/Scheduler/Class.dart';
+import 'package:ap_sara/Scheduler/class_uni.dart';
 import 'package:extension_google_sign_in_as_googleapis_auth/extension_google_sign_in_as_googleapis_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';

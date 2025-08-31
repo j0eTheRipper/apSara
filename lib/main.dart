@@ -1,5 +1,5 @@
-import 'package:ap_sara/SaraChat.dart';
-import 'package:ap_sara/SaraStuff.dart';
+import 'package:ap_sara/sara_chat.dart';
+import 'package:ap_sara/sara_model.dart';
 import 'package:ap_sara/google_account_signin.dart';
 import 'package:ap_sara/studentInfo.dart';
 import 'package:flutter/material.dart';

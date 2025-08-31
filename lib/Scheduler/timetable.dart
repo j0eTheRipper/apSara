@@ -1,4 +1,4 @@
-import 'package:ap_sara/Scheduler/Class.dart';
+import 'package:ap_sara/Scheduler/class_uni.dart';
 
 class Timetable {
   final List<Class> classes;

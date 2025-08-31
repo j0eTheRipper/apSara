@@ -1,6 +1,6 @@
 import 'package:ap_sara/SaraChat.dart';
 import 'package:ap_sara/SaraStuff.dart';
-import 'package:ap_sara/UserGoogleAccount.dart';
+import 'package:ap_sara/google_account_signin.dart';
 import 'package:ap_sara/studentInfo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 
 Future main() async {
   await dotenv.load();
-  print(dotenv.env); 
+  print(dotenv.env);
   runApp(const MyApp());
 }
 
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
           border: OutlineInputBorder(),
         ),
       ),
-      home: Login()
+      home: Login(),
     );
   }
 }
@@ -47,7 +47,10 @@ class Login extends StatelessWidget {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) {
-                      return ChangeNotifierProvider(create: (context) => GoogleCalendarStuff(), child: StudentInfo());
+                      return ChangeNotifierProvider(
+                        create: (context) => GoogleCalendarStuff(),
+                        child: StudentInfo(),
+                      );
                     },
                   ),
                 );
@@ -59,12 +62,16 @@ class Login extends StatelessWidget {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) {
-                      return ChangeNotifierProvider(create: (context) => SaraStuff(), child: ChatScreen());
+                      return ChangeNotifierProvider(
+                        create: (context) => SaraStuff(),
+                        child: ChatScreen(),
+                      );
                     },
                   ),
                 );
-              }, 
-              child: Text("chat with bot as guest")),
+              },
+              child: Text("chat with bot as guest"),
+            ),
           ],
         ),
       ),

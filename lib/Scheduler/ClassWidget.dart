@@ -1,7 +1,7 @@
-import 'package:ap_sara/UserGoogleAccount.dart';
+import 'package:ap_sara/google_account_signin.dart';
 import 'package:flutter/material.dart';
 import 'package:ap_sara/Scheduler/Class.dart';
-import 'package:ap_sara/Scheduler/IconText.dart';
+import 'package:ap_sara/Scheduler/icon_text.dart';
 
 class ClassWidget extends StatelessWidget {
   final Class classData;

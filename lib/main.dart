@@ -1,7 +1,7 @@
 import 'package:ap_sara/sara_chat.dart';
 import 'package:ap_sara/sara_model.dart';
 import 'package:ap_sara/google_account_signin.dart';
-import 'package:ap_sara/studentInfo.dart';
+import 'package:ap_sara/student_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';

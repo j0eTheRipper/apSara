@@ -57,8 +57,8 @@ class _ChatScreenState extends State<ChatScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Chat with Sara"),
-        backgroundColor: Colors.blueGrey[900],
-        foregroundColor: Colors.white,
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        foregroundColor: const Color.fromARGB(255, 5, 5, 5),
       ),
       body: Column(
         children: [
@@ -99,7 +99,7 @@ class _ChatScreenState extends State<ChatScreen> {
           SafeArea(
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              color: const Color.fromARGB(255, 22, 6, 6),
+              color: Colors.white, //const Color.fromARGB(255, 22, 6, 6),
               child: Row(
                 children: [
                   Expanded(

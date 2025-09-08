@@ -1,6 +1,10 @@
 import 'package:ap_sara/SaraChat.dart';
 import 'package:ap_sara/SaraStuff.dart';
 import 'package:ap_sara/UserGoogleAccount.dart';
+import 'package:ap_sara/campusNavigatorPage.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:ap_sara/htmlViewerMobile.dart';
+import 'package:ap_sara/htmlViewerWeb.dart';
 import 'package:ap_sara/studentInfo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -8,7 +12,7 @@ import 'package:provider/provider.dart';
 
 Future main() async {
   await dotenv.load();
-  print(dotenv.env); 
+  print(dotenv.env);
   runApp(const MyApp());
 }
 
@@ -26,7 +30,7 @@ class MyApp extends StatelessWidget {
           border: OutlineInputBorder(),
         ),
       ),
-      home: Login()
+      home: Login(),
     );
   }
 }
@@ -47,24 +51,52 @@ class Login extends StatelessWidget {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) {
-                      return ChangeNotifierProvider(create: (context) => GoogleCalendarStuff(), child: StudentInfo());
+                      return ChangeNotifierProvider(
+                        create: (context) => GoogleCalendarStuff(),
+                        child: StudentInfo(),
+                      );
                     },
                   ),
                 );
               },
-              child: Text("Provide Info"),
+              child: Text("Provide calendar info"),
             ),
-            TextButton(
+            const SizedBox(height: 16),
+            ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) {
-                      return ChangeNotifierProvider(create: (context) => SaraStuff(), child: ChatScreen());
+                      return ChangeNotifierProvider(
+                        create: (context) => SaraStuff(),
+                        child: ChatScreen(),
+                      );
                     },
                   ),
                 );
-              }, 
-              child: Text("chat with bot as guest")),
+              },
+              child: Text("Chat with bot as guest"),
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder:
+                        (context) => const CampusNavigatorPage(
+                          assetPath: 'assets/campusNavigation/navigation_menu_page.html'  
+                        ),
+                        /*
+                        const HtmlViewerWeb(//HtmlViewerPage(
+                          assetPath:
+                              'assets/campusNavigation/navigation_menu_page.html',
+                        ),
+                        */
+                  ),
+                );
+              },
+              child: Text("Navigate campus"),
+            ),
           ],
         ),
       ),

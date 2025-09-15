@@ -1,6 +1,6 @@
 import 'package:ap_sara/SaraChat.dart';
 import 'package:ap_sara/SaraStuff.dart';
-import 'package:ap_sara/UserGoogleAccount.dart';
+import 'package:ap_sara/google_account_signin.dart';
 import 'package:ap_sara/campusNavigatorPage.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:ap_sara/htmlViewerMobile.dart';

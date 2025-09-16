@@ -2,6 +2,14 @@
 
 APU student personal assistant.
 
+# Feature documentation
+
+## Chatbot
+
+## Schedule
+
+## Navigation
+
 # Contributing guidelines...
 Please follow these guidelines when pushing new changes.
 
@@ -20,3 +28,5 @@ After you have created the branch, you can rebase it on master in GitHub.
 This workflow ensures that no conflicts occur on the master branch. please abide by the workflow and contact me (youssef) if you need any clarification or help.
 
 Happy coding!
+
+

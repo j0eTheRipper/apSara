@@ -1,3 +1,4 @@
+import 'package:ap_sara/LoggedInApp.dart';
 import 'package:ap_sara/SaraChat.dart';
 import 'package:ap_sara/SaraStuff.dart';
 import 'package:ap_sara/google_account_signin.dart';
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
           border: OutlineInputBorder(),
         ),
       ),
-      home: Login(),
+      home: LoggedInApp() //Login(),
     );
   }
 }

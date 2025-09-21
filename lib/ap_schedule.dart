@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'package:ap_sara/CustomElevatedButton.dart';
 import 'package:ap_sara/Scheduler/ClassWidget.dart';
+import 'package:ap_sara/animatedBackground.dart';
 import 'package:ap_sara/google_account_signin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -11,41 +13,58 @@ class ApSchedule extends StatelessWidget {
   final String intakeCode;
   final String groupNumber;
   final GoogleCalendarStuff account;
+  final VoidCallback onBack;
 
   const ApSchedule({
     super.key,
     required this.intakeCode,
     required this.groupNumber,
     required this.account,
+    required this.onBack,
   });
 
   @override
   Widget build(BuildContext context) {
     Future<Timetable> schedule = getTimetable();
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            FutureBuilder<Timetable>(
+      body: Stack(
+        children: [
+          AnimatedBackground(),
+          Center(
+            child: FutureBuilder<Timetable>(
               future: schedule,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  return Expanded(
-                    child: ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      itemCount: snapshot.data!.classes.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: ClassWidget(
-                            classData: snapshot.data!.classes[index],
-                            account: account,
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: CustomElevatedButton(
+                            onPressed: onBack,
+                            label: "Go back",
                           ),
-                        );
-                      },
-                    ),
+                        ),
+                      ),
+                      Expanded(
+                        child: ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
+                          itemCount: snapshot.data!.classes.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ClassWidget(
+                                classData: snapshot.data!.classes[index],
+                                account: account,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
                   );
                 } else if (snapshot.hasError) {
                   return Text("Error: ${snapshot.error}");
@@ -54,8 +73,8 @@ class ApSchedule extends StatelessWidget {
                 }
               },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

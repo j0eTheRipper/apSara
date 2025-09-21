@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:ap_sara/Scheduler/Class.dart';
 import 'package:ap_sara/Scheduler/icon_text.dart';
 
+//import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+//import 'package:material_symbols_icons/symbols_map.dart';
+//import 'package:material_symbols_icons/material_symbols_icons.dart';
+
 class ClassWidget extends StatelessWidget {
   final Class classData;
   final GoogleCalendarStuff account;
@@ -16,10 +20,16 @@ class ClassWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     account.signInSilently();
+
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Colors.deepPurpleAccent,
+        color: const Color.fromARGB(
+          255,
+          57,
+          26,
+          140,
+        ), //Colors.deepPurpleAccent,
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
@@ -76,9 +86,17 @@ class ClassWidget extends StatelessWidget {
                   vertical: 8,
                 ),
               ),
-              child: const Text(
-                "Add To calendar",
-                style: TextStyle(color: Colors.white, fontSize: 12),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.add,
+                    color: Colors.white,
+                  ),
+                  const Text(
+                    "Add To Google Calendar",
+                    style: TextStyle(color: Colors.white, fontSize: 12),
+                  ),
+                ],
               ),
             ),
           ),

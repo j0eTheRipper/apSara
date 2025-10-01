@@ -1,10 +1,8 @@
 import 'package:ap_sara/StudentInfoForm.dart';
-import 'package:ap_sara/animatedBackground.dart';
 import 'package:ap_sara/ap_schedule.dart';
 import 'package:ap_sara/google_account_signin.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 
 class StudentInfo extends StatefulWidget {
   const StudentInfo({super.key});
@@ -39,9 +37,10 @@ class _StudentInfoState extends State<StudentInfo> {
     account.signInSilently();
 
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: Stack(
         children: [
-          AnimatedBackground(),
+          //AnimatedBackground(),
           Center(
             child: AnimatedSwitcher(
               duration: const Duration(milliseconds: 300),

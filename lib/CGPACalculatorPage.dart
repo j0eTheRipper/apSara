@@ -1,6 +1,5 @@
 import 'package:ap_sara/animatedBackground.dart';
 import 'package:flutter/material.dart';
-import 'package:particles_flutter/particles_flutter.dart';
 
 class CGPACalculatorPage extends StatefulWidget {
   const CGPACalculatorPage({super.key});
@@ -13,10 +12,11 @@ class _CGPACalculatorPageState extends State<CGPACalculatorPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
-          AnimatedBackground(),
+          //AnimatedBackground(),
           Center(
             child: const Text(
               "(C)GPA Calculator coming soon...",

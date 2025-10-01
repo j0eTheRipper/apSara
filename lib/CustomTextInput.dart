@@ -5,7 +5,7 @@ class CustomTextField extends StatelessWidget {
   final String label;
 
   const CustomTextField({super.key, required this.controller, required this.label});
-
+  
   @override
   Widget build(Object context) {
     return TextField(
@@ -17,12 +17,6 @@ class CustomTextField extends StatelessWidget {
       decoration: InputDecoration(
         filled: true,
         fillColor: Colors.grey[900], // dark gray background
-        //hintText: "...", // placeholder
-        //hintStyle: TextStyle(
-        //  color: Colors.white.withOpacity(
-        //    0.6,
-        //  ), // light white placeholder
-        //),
         labelText: label,
         labelStyle: TextStyle(
           color: Colors.lightBlueAccent, // light blue caption

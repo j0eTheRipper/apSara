@@ -64,15 +64,24 @@ class GoogleCalendarStuff extends ChangeNotifier {
     return event.items!.isNotEmpty;
   }
 
-  Future<void> addToCalendar(Class cls) async {
-    final authClient = await _googleSignIn.authenticatedClient();
-    final userCalendar = CalendarApi(authClient!);
-    Event event = Event(
-      start: EventDateTime(dateTime: cls.start),
-      end: EventDateTime(dateTime: cls.end),
-      summary: cls.moduleID,
-      description: cls.moduleTitle,
-    );
-    await userCalendar.events.insert(event, account);
+  Future<Event?> addToCalendar(Class cls) async {
+    try {
+      final authClient = await _googleSignIn.authenticatedClient();
+      final userCalendar = CalendarApi(authClient!);
+      Event event = Event(
+        start: EventDateTime(dateTime: cls.start),
+        end: EventDateTime(dateTime: cls.end),
+        summary: cls.moduleID,
+        description: cls.moduleTitle,
+      );
+      final createdEvent = await userCalendar.events.insert(event, account);
+      return createdEvent;
+    } catch (e, st) {
+      // Replace these print statements with proper error
+      // logging !
+      print("Error adding to calendar: $e");
+      print("$st");
+      return null;
+    }
   }
 }

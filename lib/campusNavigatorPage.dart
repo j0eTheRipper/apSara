@@ -26,7 +26,7 @@ class _CampusNavigatorPageState extends State<CampusNavigatorPage> {
             initialFile: assetPath,
             initialSettings: InAppWebViewSettings(javaScriptEnabled: true),
           ),
-        ), 
+        ),
       );
     } else {
       final controller =
@@ -35,7 +35,7 @@ class _CampusNavigatorPageState extends State<CampusNavigatorPage> {
             ..loadFlutterAsset(assetPath);
 
       return Scaffold(
-        appBar: AppBar(title: const Text("Campus Navigator")),
+        backgroundColor: Colors.transparent,
         body: Center(child: WebViewWidget(controller: controller)),
       );
     }

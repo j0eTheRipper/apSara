@@ -1,5 +1,6 @@
 //import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class HtmlViewerMobile extends StatefulWidget {
@@ -16,9 +17,23 @@ class _HtmlViewerMobileState extends State<HtmlViewerMobile> {
   @override
   void initState() {
     super.initState();
-    _controller = WebViewController()
-      ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..loadFlutterAsset(widget.assetPath);
+    _controller =
+        WebViewController()..setJavaScriptMode(JavaScriptMode.unrestricted);
+    //..loadFlutterAsset(widget.assetPath);
+
+    _loadFixedHtml();
+  }
+
+  Future<void> _loadFixedHtml() async {
+    final rawHtml = await rootBundle.loadString(widget.assetPath);
+
+    // Fix image paths: prepend "assets/" if missing
+    final fixedHtml = rawHtml.replaceAll(
+      'src="campusNavigation/',
+      'src="assets/campusNavigation/',
+    );
+
+    await _controller.loadHtmlString(fixedHtml);
   }
 
   @override

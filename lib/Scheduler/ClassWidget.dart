@@ -77,7 +77,36 @@ class ClassWidget extends StatelessWidget {
             alignment: Alignment.centerRight,
             child: ElevatedButton(
               onPressed: () async {
-                await account.addToCalendar(classData);
+                if (account.isAuthorized) {
+                  //final classEvent = 
+                  await account.addToCalendar(classData);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Added to Google Calendar!"),
+                      backgroundColor: Colors.green,
+                    ),
+                  );
+                  /*
+                  if (null != classEvent) {
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("Added to Google Calendar!"),
+                        backgroundColor: Colors.green,
+                      ),
+                    );
+                  }
+                  */
+                } else {
+                  // Display error message
+                  // 'Not signed in with google!'
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Not signed in with Google!"),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                }
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.red,
@@ -88,10 +117,7 @@ class ClassWidget extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  Icon(
-                    Icons.add,
-                    color: Colors.white,
-                  ),
+                  Icon(Icons.add, color: Colors.white),
                   const Text(
                     "Add To Google Calendar",
                     style: TextStyle(color: Colors.white, fontSize: 12),

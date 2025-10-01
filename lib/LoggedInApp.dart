@@ -6,6 +6,7 @@ import 'package:ap_sara/google_account_signin.dart';
 import 'package:ap_sara/homePage.dart';
 import 'package:ap_sara/studentInfo.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'package:ap_sara/CustomBottomNavBar.dart';
 import 'package:particles_flutter/particles_flutter.dart';
@@ -51,7 +52,8 @@ class _LoggedInAppState extends State<LoggedInApp> {
       ),
       ChatScreen(),
       CampusNavigatorPage(
-        assetPath: 'assets/campusNavigation/navigation_menu_page.html',
+        assetPath:'${dotenv.env["REST_API"]}/asset/navigation_menu_page.html', 
+        //'assets/campusNavigation/navigation_menu_page.html',
       ),
       CGPACalculatorPage(),
     ];

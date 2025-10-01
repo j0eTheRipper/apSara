@@ -5,38 +5,52 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 class CampusNavigatorPage extends StatefulWidget {
   final String assetPath;
-
   const CampusNavigatorPage({super.key, required this.assetPath});
 
   @override
-  State<StatefulWidget> createState() => _CampusNavigatorPageState(assetPath);
+  State<StatefulWidget> createState() => _CampusNavigatorPageState();
 }
 
 class _CampusNavigatorPageState extends State<CampusNavigatorPage> {
-  String assetPath = "";
-
-  _CampusNavigatorPageState(this.assetPath);
-
+  void _showError(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message, style: Theme.of(context).textTheme.bodyMedium),
+        backgroundColor: Theme.of(context).colorScheme.error,
+      ),
+    );
+  }
+  
   @override
   Widget build(BuildContext context) {
     if (kIsWeb) {
       return Scaffold(
-        body: Center(
-          child: InAppWebView(
-            initialFile: assetPath,
-            initialSettings: InAppWebViewSettings(javaScriptEnabled: true),
-          ),
-        ), 
+        body: InAppWebView(
+          initialUrlRequest: URLRequest(url: WebUri(widget.assetPath)),
+          initialSettings: InAppWebViewSettings(javaScriptEnabled: true),
+          onReceivedError: (controller, request, error) {
+            _showError(
+              context,
+              "Load error (${error.type}): ${error.description}",
+            );
+          },
+          onReceivedHttpError: (controller, request, response) {
+            _showError(
+              context,
+              "HTTP error (${response.statusCode}): ${response.reasonPhrase}",
+            );
+          },
+        ),
       );
     } else {
       final controller =
           WebViewController()
             ..setJavaScriptMode(JavaScriptMode.unrestricted)
-            ..loadFlutterAsset(assetPath);
+            ..loadRequest(Uri.parse(widget.assetPath));
 
       return Scaffold(
         appBar: AppBar(title: const Text("Campus Navigator")),
-        body: Center(child: WebViewWidget(controller: controller)),
+        body: WebViewWidget(controller: controller),
       );
     }
   }

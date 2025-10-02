@@ -1,4 +1,5 @@
 import 'package:ap_sara/StudentInfoForm.dart';
+import 'package:ap_sara/animatedBackground.dart';
 import 'package:ap_sara/ap_schedule.dart';
 import 'package:ap_sara/google_account_signin.dart';
 import 'package:flutter/material.dart';

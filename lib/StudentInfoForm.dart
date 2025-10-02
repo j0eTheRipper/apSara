@@ -31,7 +31,7 @@ class StudentInfoForm extends StatelessWidget {
       onSave(intakeCtrl.text.toUpperCase(), groupCtrl.text.toUpperCase());
     }
   }
-
+  
   @override
   Widget build(BuildContext context) {
     final intakeCtrl = TextEditingController();

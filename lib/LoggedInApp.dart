@@ -1,13 +1,18 @@
 import 'package:ap_sara/CGPACalculatorPage.dart';
 import 'package:ap_sara/SaraChat.dart';
+
 import 'package:ap_sara/animatedBackground.dart';
 import 'package:ap_sara/campusNavigatorPage.dart';
+import 'package:ap_sara/cgpaCalculator.dart';
+
 import 'package:ap_sara/google_account_signin.dart';
 import 'package:ap_sara/homePage.dart';
 import 'package:ap_sara/studentInfo.dart';
 import 'package:flutter/material.dart';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:ap_sara/CustomBottomNavBar.dart';
+import 'package:particles_flutter/particles_flutter.dart';
 import 'package:provider/provider.dart';
 
 // The logic of the app once the user is logged in.
@@ -50,29 +55,22 @@ class _LoggedInAppState extends State<LoggedInApp> {
       ),
       ChatScreen(),
       CampusNavigatorPage(
-        assetPath: 'assets/campusNavigation/navigation_menu_page.html',
+        assetPath:'${dotenv.env["REST_API"]}/asset/navigation_menu_page.html', 
+        //'assets/campusNavigation/navigation_menu_page.html',
       ),
       CGPACalculatorPage(),
     ];
-    
-    return Stack(
-      children: [
-        // Do not render on the campus navigator
-        // (Optimization)
-        if(3!=_selectedIndex) const AnimatedBackground(),
-        Scaffold(
-          backgroundColor: Colors.transparent,
-          body: IndexedStack(index: _selectedIndex, children: pages),
-          bottomNavigationBar: CustomBottomNavBar(
-            selectedIndex: _selectedIndex,
-            onTapped: (index) {
-              setState(() {
-                _selectedIndex = index;
-              });
-            },
-          ),
-        ),
-      ],
+
+    return Scaffold(
+      body: IndexedStack(index: _selectedIndex, children: pages),
+      bottomNavigationBar: CustomBottomNavBar(
+        selectedIndex: _selectedIndex,
+        onTapped: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
+      ),
     );
   }
 }

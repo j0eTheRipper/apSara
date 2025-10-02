@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
           border: OutlineInputBorder(),
         ),
       ),
-      home: LoggedInApp() //Login(),
+      home: LoggedInApp(), //Login(),
     );
   }
 }
@@ -81,13 +81,13 @@ class Login extends StatelessWidget {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder:
+                        (context) => CampusNavigatorPage(
+                          assetPath:
+                              '${dotenv.env["REST_API"]}/asset/navigation_menu_page.html',
+                        ),
+                    /*
                         (context) => const CampusNavigatorPage(
                           assetPath: 'assets/campusNavigation/navigation_menu_page.html'  
-                        ),
-                        /*
-                        const HtmlViewerWeb(//HtmlViewerPage(
-                          assetPath:
-                              'assets/campusNavigation/navigation_menu_page.html',
                         ),
                         */
                   ),

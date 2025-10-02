@@ -47,6 +47,7 @@ dependencies:
   extension_google_sign_in_as_googleapis_auth: ^2.0.13
   webview_flutter: ^4.7.0 # Android/iOS
   flutter_inappwebview: ^6.0.0 # for better web support
+  shared_preferences: ^2.5.3
 
 dev_dependencies:
   flutter_test:

@@ -22,12 +22,12 @@ class CustomBottomNavBar extends StatelessWidget {
         fontSize: 12,
       ),
       type: BottomNavigationBarType.fixed,
-      backgroundColor: const Color(0xFF0D1B2A), // dark blue background
-      selectedItemColor: const Color(0xFF1E90FF), // lighter blue when selected
-      unselectedItemColor: Colors.white, // white when not selected
+      backgroundColor: const Color(0xFF0D1B2A), 
+      selectedItemColor: const Color(0xFF1E90FF),
+      unselectedItemColor: Colors.white,
       showUnselectedLabels: true,
-      currentIndex: selectedIndex, // parent passes this in
-      onTap: onTapped, // parent updates the index
+      currentIndex: selectedIndex, 
+      onTap: onTapped,
       items: const [
         BottomNavigationBarItem(
           icon: Icon(Icons.home_filled),

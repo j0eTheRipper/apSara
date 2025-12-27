@@ -12,6 +12,11 @@ class CampusNavigatorPage extends StatefulWidget {
 }
 
 class _CampusNavigatorPageState extends State<CampusNavigatorPage> {
+  
+  //String assetPath = "";
+
+  //_CampusNavigatorPageState(this.assetPath);
+  
   void _showError(BuildContext context, String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -25,21 +30,23 @@ class _CampusNavigatorPageState extends State<CampusNavigatorPage> {
   Widget build(BuildContext context) {
     if (kIsWeb) {
       return Scaffold(
-        body: InAppWebView(
-          initialUrlRequest: URLRequest(url: WebUri(widget.assetPath)),
-          initialSettings: InAppWebViewSettings(javaScriptEnabled: true),
-          onReceivedError: (controller, request, error) {
-            _showError(
-              context,
-              "Load error (${error.type}): ${error.description}",
-            );
-          },
-          onReceivedHttpError: (controller, request, response) {
-            _showError(
-              context,
-              "HTTP error (${response.statusCode}): ${response.reasonPhrase}",
-            );
-          },
+        body: Center(
+          child: InAppWebView(
+            initialUrlRequest: URLRequest(url: WebUri(widget.assetPath)),
+            initialSettings: InAppWebViewSettings(javaScriptEnabled: true),
+            onReceivedError: (controller, request, error) {
+              _showError(
+                context,
+                "Load error (${error.type}): ${error.description}",
+              );
+            },
+            onReceivedHttpError: (controller, request, response) {
+              _showError(
+                context,
+                "HTTP error (${response.statusCode}): ${response.reasonPhrase}",
+              );
+            },
+          )
         ),
       );
     } else {
@@ -49,8 +56,8 @@ class _CampusNavigatorPageState extends State<CampusNavigatorPage> {
             ..loadRequest(Uri.parse(widget.assetPath));
 
       return Scaffold(
-        appBar: AppBar(title: const Text("Campus Navigator")),
-        body: WebViewWidget(controller: controller),
+        backgroundColor: Colors.transparent,
+        body: Center(child: WebViewWidget(controller: controller)),
       );
     }
   }

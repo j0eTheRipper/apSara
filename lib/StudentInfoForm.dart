@@ -15,6 +15,23 @@ class StudentInfoForm extends StatelessWidget {
     required this.account,
   });
 
+  void onSaveInfo(
+    TextEditingController intakeCtrl,
+    TextEditingController groupCtrl,
+    BuildContext context,
+  ) {
+    if (intakeCtrl.text.isEmpty || groupCtrl.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Fill in the fields first"),
+          backgroundColor: Colors.red,
+        ),
+      );
+    } else {
+      onSave(intakeCtrl.text.toUpperCase(), groupCtrl.text.toUpperCase());
+    }
+  }
+  
   @override
   Widget build(BuildContext context) {
     final intakeCtrl = TextEditingController();
@@ -30,12 +47,7 @@ class StudentInfoForm extends StatelessWidget {
           CustomTextField(controller: groupCtrl, label: "Group"),
           const SizedBox(height: 8),
           CustomElevatedButton(
-            onPressed: () {
-              onSave(
-                intakeCtrl.text.toUpperCase(),
-                groupCtrl.text.toUpperCase(),
-              );
-            },
+            onPressed: () => onSaveInfo(intakeCtrl, groupCtrl, context),
             label: "Save Info",
           ),
           Consumer<GoogleCalendarStuff>(

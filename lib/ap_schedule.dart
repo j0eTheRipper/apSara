@@ -27,50 +27,144 @@ class ApSchedule extends StatelessWidget {
   Widget build(BuildContext context) {
     Future<Timetable> schedule = getTimetable();
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: Stack(
         children: [
-          AnimatedBackground(),
+          //AnimatedBackground(),
           Center(
             child: FutureBuilder<Timetable>(
               future: schedule,
               builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Align(
-                          alignment: Alignment.topLeft,
-                          child: CustomElevatedButton(
-                            onPressed: onBack,
-                            label: "Go back",
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return CircularProgressIndicator();
+                } else if (snapshot.connectionState == ConnectionState.done) {
+                  if (!snapshot.hasError) {
+                    if (snapshot.hasData) {
+                      if (snapshot.data!.classes.isNotEmpty) {
+                        //snapshot.hasData) {
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Align(
+                                alignment: Alignment.topLeft,
+                                child: CustomElevatedButton(
+                                  onPressed: onBack,
+                                  label: "Go back",
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: ListView.builder(
+                                scrollDirection: Axis.vertical,
+                                shrinkWrap: true,
+                                itemCount: snapshot.data!.classes.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ClassWidget(
+                                      classData: snapshot.data!.classes[index],
+                                      account: account,
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        );
+                      } else {
+                        //if (!snapshot.hasData ||snapshot.data!.classes.isEmpty) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Align(
+                                alignment: Alignment.topLeft,
+                                child: CustomElevatedButton(
+                                  onPressed: onBack,
+                                  label: "Go back",
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Center(
+                                child: Text(
+                                  "No classes for this intake, for now...",
+                                  style: TextStyle(
+                                    fontSize: 24,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      }
+                    }
+                  } else {
+                    // Error occurred
+                    return Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: CustomElevatedButton(
+                              onPressed: onBack,
+                              label: "Go back",
+                            ),
                           ),
                         ),
-                      ),
-                      Expanded(
-                        child: ListView.builder(
-                          scrollDirection: Axis.vertical,
-                          shrinkWrap: true,
-                          itemCount: snapshot.data!.classes.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: ClassWidget(
-                                classData: snapshot.data!.classes[index],
-                                account: account,
+                        Expanded(
+                          child: Center(
+                            child: Text(
+                              "Error: ${snapshot.error}",
+                              style: TextStyle(
+                                fontSize: 24,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
                               ),
-                            );
-                          },
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  }
+                }
+
+                // Fallback case
+                return Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: CustomElevatedButton(
+                          onPressed: onBack,
+                          label: "Go back",
                         ),
                       ),
-                    ],
-                  );
-                } else if (snapshot.hasError) {
-                  return Text("Error: ${snapshot.error}");
-                } else {
-                  return CircularProgressIndicator();
-                }
+                    ),
+                    Expanded(
+                      child: Center(
+                        child: Text(
+                          "An unknown error ocurred...",
+                          style: TextStyle(
+                            fontSize: 24,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  ],
+                );
               },
             ),
           ),

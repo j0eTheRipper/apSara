@@ -17,9 +17,10 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      backgroundColor: Colors.transparent,
       body: Stack(
         children: [
-          AnimatedBackground(),
+          //AnimatedBackground(),
           Center(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,

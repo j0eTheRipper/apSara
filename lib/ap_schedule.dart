@@ -175,8 +175,7 @@ class ApSchedule extends StatelessWidget {
 
   Future<Timetable> getTimetable() async {
     final String url =
-        "${dotenv.env["CALENDAR_API"]!}/get_timetable/$intakeCode/$groupNumber";
-    print(url);
+        "${dotenv.env["BACK_END_API"]!}/get_timetable/$intakeCode/$groupNumber";
     final response = await http.get(Uri.parse(url));
     List<dynamic> jsonResponse = jsonDecode(response.body);
     return Timetable.fromJson(jsonResponse);
